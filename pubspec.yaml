@@ -1,0 +1,23 @@
+name: letterboxd
+description: A simplified version of Letterboxd for managing movie lists and ratings.
+
+publish_to: 'none' 
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  shared_preferences: ^2.0.15
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/  # Add your image assets here if needed.
