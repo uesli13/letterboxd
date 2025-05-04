@@ -3,9 +3,16 @@ import '../services/data_service.dart';
 import '../widgets/movie_card.dart';
 import 'movie_detail_screen.dart';
 
-class LikedScreen extends StatelessWidget {
+
+class LikedScreen extends StatefulWidget {
   const LikedScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LikedScreen> createState() => _LikedScreenState();
+}
+
+
+class _LikedScreenState extends State<LikedScreen> {
   @override
   Widget build(BuildContext context) {
     final likedMovies = DataService.user.liked;
@@ -27,13 +34,17 @@ class LikedScreen extends StatelessWidget {
                 final movie = likedMovies[index];
                 return MovieCard(
                   movie: movie,
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    // Navigate to MovieDetailScreen and wait for the result
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MovieDetailScreen(movie: movie),
                       ),
                     );
+
+                    // Refresh the state when returning from MovieDetailScreen
+                    setState(() {});
                   },
                 );
               },

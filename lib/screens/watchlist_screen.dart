@@ -3,9 +3,14 @@ import '../services/data_service.dart';
 import '../widgets/movie_card.dart';
 import 'movie_detail_screen.dart';
 
-class WatchlistScreen extends StatelessWidget {
+class WatchlistScreen extends StatefulWidget {
   const WatchlistScreen({Key? key}) : super(key: key);
 
+  @override
+  State<WatchlistScreen> createState() => _WatchlistScreenState();
+}
+
+class _WatchlistScreenState extends State<WatchlistScreen> {
   @override
   Widget build(BuildContext context) {
     final watchlistMovies = DataService.user.watchlist;
@@ -27,13 +32,17 @@ class WatchlistScreen extends StatelessWidget {
                 final movie = watchlistMovies[index];
                 return MovieCard(
                   movie: movie,
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    // Navigate to MovieDetailScreen and wait for the result
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MovieDetailScreen(movie: movie),
                       ),
                     );
+
+                    // Refresh the state when returning from MovieDetailScreen
+                    setState(() {});
                   },
                 );
               },
