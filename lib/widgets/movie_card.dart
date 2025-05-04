@@ -12,7 +12,6 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [

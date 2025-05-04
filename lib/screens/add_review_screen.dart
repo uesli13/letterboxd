@@ -14,8 +14,8 @@ class AddReviewScreen extends StatefulWidget {
 
 class _AddReviewScreenState extends State<AddReviewScreen> {
   final _formKey = GlobalKey<FormState>();
-  int _rating = 0; // Star rating
-  String _reviewText = "";
+  final TextEditingController _reviewController = TextEditingController();
+  int _rating = 0;
 
   @override
   void initState() {
@@ -24,14 +24,18 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     // Check if the movie already has a review
     final existingReview = DataService.userReviews.firstWhere(
       (review) => review.movie.title == widget.movie.title,
-      orElse: () => Review(movie: widget.movie, score: 0, text: ""), // Return a default Review instead of null
-);
+      orElse: () => Review(movie: widget.movie, score: 0, text: ""), // Default review
+    );
 
-    // if (existingReview != null) {////////////////////////////////////
-      // Pre-fill the rating and review text
-      _rating = existingReview.score;
-      _reviewText = existingReview.text;
-    // }
+    // Pre-fill the rating and review text
+    _rating = existingReview.score;
+    _reviewController.text = existingReview.text; 
+  }
+
+  @override
+  void dispose() {
+    _reviewController.dispose(); // Dispose of the controller to free resources
+    super.dispose();
   }
 
   void _submitReview() async {
@@ -41,7 +45,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       final review = Review(
         movie: widget.movie,
         score: _rating,
-        text: _reviewText,
+        text: _reviewController.text, // Use the controller's text
       );
 
       // Check if the movie already has a review
@@ -102,6 +106,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               const SizedBox(height: 16),
               // Review Text Box
               TextFormField(
+                controller: _reviewController, // Attach the controller
                 decoration: InputDecoration(
                   labelText: "Write your review",
                   labelStyle: const TextStyle(color: Colors.grey),
@@ -118,9 +123,6 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     return "Please enter your review.";
                   }
                   return null;
-                },
-                onSaved: (value) {
-                  _reviewText = value!;
                 },
               ),
               const SizedBox(height: 24),

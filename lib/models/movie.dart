@@ -1,11 +1,22 @@
 class Movie {
   final String title;
   final String director;
-  final String image; // URL or asset path for the movie poster
+  final String image; //asset path for the movie poster
   final int year;
-  final int duration; // Duration in minutes
+  final int duration;
   final String description;
-  final List<String> genre; // List of genres (e.g., ["Action", "Drama"])
+  final List<String> genre;
+
+  @override
+  bool operator ==(Object other) =>
+    identical(this, other) ||
+    (other is Movie &&
+        title == other.title &&
+        director == other.director &&
+        year == other.year);
+
+  @override
+  int get hashCode => title.hashCode ^ director.hashCode ^ year.hashCode;
 
   Movie({
     required this.title,

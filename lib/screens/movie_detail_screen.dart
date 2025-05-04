@@ -23,20 +23,30 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   void initState() {
     super.initState();
-    final user = DataService.user;
-    isLiked = user.liked.contains(widget.movie);
-    isInWatchlist = user.watchlist.contains(widget.movie);
-    isWatched = user.watched.contains(widget.movie);
-
-    // Load reviews for the current movie
-    _loadMovieReviews();
+    _syncButtonStates();
+    _loadMovieReviews(); // Load reviews for the current movie
   }
+  
+  @override
+void didChangeDependencies() {
+  super.didChangeDependencies();
+  _syncButtonStates(); // Update button states when screen is revisited
+}
 
   void _loadMovieReviews() {
     setState(() {
       movieReviews = DataService.userReviews
           .where((review) => review.movie.title == widget.movie.title)
           .toList();
+    });
+  }
+
+  void _syncButtonStates() {
+    final user = DataService.user;
+    setState(() {
+      isLiked = user.liked.contains(widget.movie);
+      isInWatchlist = user.watchlist.contains(widget.movie);
+      isWatched = user.watched.contains(widget.movie);
     });
   }
 
@@ -50,31 +60,34 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       }
       isLiked = !isLiked;
     });
+    DataService.saveData(); // Add this line
   }
 
-  void toggleWatchlist() {
-    setState(() {
-      final user = DataService.user;
-      if (isInWatchlist) {
-        user.watchlist.remove(widget.movie);
-      } else {
-        user.watchlist.add(widget.movie);
-      }
-      isInWatchlist = !isInWatchlist;
-    });
-  }
+    void toggleWatchlist() {
+      setState(() {
+        final user = DataService.user;
+        if (isInWatchlist) {
+          user.watchlist.remove(widget.movie);
+        } else {
+          user.watchlist.add(widget.movie);
+        }
+        isInWatchlist = !isInWatchlist;
+      });
+      DataService.saveData(); // Add this line
+    }
 
-  void toggleWatched() {
-    setState(() {
-      final user = DataService.user;
-      if (isWatched) {
-        user.watched.remove(widget.movie);
-      } else {
-        user.watched.add(widget.movie);
-      }
-      isWatched = !isWatched;
-    });
-  }
+    void toggleWatched() {
+      setState(() {
+        final user = DataService.user;
+        if (isWatched) {
+          user.watched.remove(widget.movie);
+        } else {
+          user.watched.add(widget.movie);
+        }
+        isWatched = !isWatched;
+      });
+      DataService.saveData(); // Add this line
+    }
 
   @override
   Widget build(BuildContext context) {
