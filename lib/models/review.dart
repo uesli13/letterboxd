@@ -2,8 +2,8 @@ import 'movie.dart';
 
 class Review {
   final Movie movie;
-  final int score; // Rating score (e.g., 1-10)
-  final String text; // Review text
+  final int score;
+  final String text;
 
   Review({
     required this.movie,

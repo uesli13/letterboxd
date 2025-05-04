@@ -2,7 +2,7 @@ import 'movie.dart';
 
 class User {
   final String name;
-  final String photo; // URL or asset path for the user's profile picture
+  final String photo;
   List<Movie> watched;
   List<Movie> liked;
   List<Movie> watchlist;

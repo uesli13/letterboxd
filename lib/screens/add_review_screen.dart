@@ -76,71 +76,73 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Review for: ${widget.movie.title}",
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              // Star Rating
-              Row(
-                children: List.generate(5, (index) {
-                  return IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _rating = index + 1;
-                      });
-                    },
-                    icon: Icon(
-                      index < _rating ? Icons.star : Icons.star_border,
-                      color: Colors.yellow,
-                      size: 32,
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 16),
-              // Review Text Box
-              TextFormField(
-                controller: _reviewController, // Attach the controller
-                decoration: InputDecoration(
-                  labelText: "Write your review",
-                  labelStyle: const TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                  ),
+        child: SingleChildScrollView( // Wrap the content in a scrollable view
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Review for: ${widget.movie.title}",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                maxLines: 5,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your review.";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 24),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _submitReview,
-                  child: const Text("Submit Review"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                const SizedBox(height: 16),
+                // Star Rating
+                Row(
+                  children: List.generate(5, (index) {
+                    return IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _rating = index + 1;
+                        });
+                      },
+                      icon: Icon(
+                        index < _rating ? Icons.star : Icons.star_border,
+                        color: Colors.yellow,
+                        size: 32,
+                      ),
+                    );
+                  }),
+                ),
+                const SizedBox(height: 16),
+                // Review Text Box
+                TextFormField(
+                  controller: _reviewController,
+                  decoration: InputDecoration(
+                    labelText: "Write your review",
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                   ),
+                  maxLines: 5,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your review.";
+                    }
+                    return null;
+                  },
                 ),
-              ),
-            ],
+                const SizedBox(height: 24),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _submitReview,
+                    child: const Text("Submit Review"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

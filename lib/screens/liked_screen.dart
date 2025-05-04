@@ -32,7 +32,7 @@ class _LikedScreenState extends State<LikedScreen> {
               itemBuilder: (context, index) {
                 final movie = likedMovies[index];
                 return Slidable(
-                  key: ValueKey(movie.title), // Unique key for each movie
+                  key: ValueKey(movie.title),
                   endActionPane: ActionPane(
                     motion: const ScrollMotion(),
                     children: [

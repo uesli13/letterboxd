@@ -16,10 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Letterboxd',
       theme: ThemeData.dark().copyWith(
-        // colorScheme: ColorScheme.dark(
-        //   primary: Colors.green,
-        //   secondary: Colors.greenAccent,
-        // ),
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
