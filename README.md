@@ -14,7 +14,7 @@ This is a Flutter project for a Letterboxd-like app.
 
 ## How to Run
 1. Install Flutter: [Flutter Installation Guide](https://flutter.dev/docs/get-started/install)
-2. Clone this repository or extract the zip file.
+2. Clone this repository or extract the zip file. (https://github.com/uesli13/letterboxd)
 3. Navigate to the project directory:
    ```bash
    cd letterboxd
